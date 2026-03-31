@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "shut_down",
+  "version": "${version}",
+  "name": "Shutdown",
+  "description": "SYSTEM.SHUTDOWN",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/shut_down/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.naw.shut_down.client.Shut_downClient"
+    ],
+    "main": [
+      "net.naw.shut_down.Shut_down"
+    ],
+    "modmenu": [
+      "net.naw.shut_down.client.Shut_downClient"
+    ]
+  },
+  "mixins": [
+    "shut_down.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "cloth-config": "*",
+    "modmenu": "*"
+  }
+}
