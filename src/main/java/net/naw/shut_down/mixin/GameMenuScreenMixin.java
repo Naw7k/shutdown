@@ -36,6 +36,12 @@ public abstract class GameMenuScreenMixin extends Screen {
     */
     @Inject(method = "init", at = @At("TAIL"))
     private void onInit(CallbackInfo info) {
+        // Don't add button when opened via F3+Esc (showPauseMenu is false in that case)
+        if (!((PauseScreenAccessor) this).isShowPauseMenu()) {
+            shutdownButton = null;
+            return;
+        }
+
         // Position math: Places the button in the bottom right area of the menu center
         int vanillaButtonsY = this.height / 4 + 119 - 16 + 1;
 
@@ -53,7 +59,6 @@ public abstract class GameMenuScreenMixin extends Screen {
         // This line actually "pins" the button onto the screen so it's visible
         this.addRenderableWidget(shutdownButton);
     }
-
     /* This runs every single frame while the menu is open.
        It handles the visual stuff, like changing the icon color and showing the tooltip.
     */
