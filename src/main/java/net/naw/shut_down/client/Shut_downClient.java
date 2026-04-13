@@ -19,12 +19,16 @@ public class Shut_downClient implements ClientModInitializer, ModMenuApi {
 
     @Override
     public void onInitializeClient() {
-        // This listener pauses the 'Time Played' counter when the Pause Menu is open
-        // and resumes it once the menu is closed.
         ScreenEvents.BEFORE_INIT.register((_, screen, _, _) -> {
             if (screen instanceof PauseScreen) {
                 Shut_down.stopCounting();
-                ScreenEvents.remove(screen).register(_ -> Shut_down.startCounting());
+                ScreenEvents.remove(screen).register(_ -> {
+                    net.minecraft.client.Minecraft.getInstance().execute(() -> {
+                        if (net.minecraft.client.Minecraft.getInstance().screen == null) {
+                            Shut_down.startCounting();
+                        }
+                    });
+                });
             }
         });
     }
